@@ -27,25 +27,6 @@ def dfs(Graph, start = '', end = ''):
     return visitedd
 
 
-# def bfs(Graph, start = '', end = ''):
-#     path = []
-#
-#     while q and len(visitedb) < len(Graph) and end not in path:
-#         #print "end: {}; visted: {}".format(end, end in visitedb)
-#         vertex = q.popleft()
-#         visitedb.append(vertex)
-#         path.append(vertex)
-#
-#         ritem = ''
-#         for item in Graph[vertex]:
-#             if item not in visitedb and item not in q:
-#                 q.append(item)
-#                 ritem = item
-#         print "Before iteration, visitedb: " + str(visitedb)
-#         print "Before iteration, q: " + str(q)
-#         return bfs(Graph, start = ritem, end = end)
-#     return visitedb
-
 def bfs(Graph, start = '', end = ''):
     queue = [[start]]
     visitedb = []
