@@ -1,6 +1,4 @@
 #!/usr/bin/python
-from collections import deque
-
 Graph = {
     'A': set(['B', 'F', 'D']),
     'B': set(['A', 'C']),
@@ -12,9 +10,7 @@ Graph = {
     'H': set(['C', 'I']),
     'I': set(['E', 'H'])
 }
-q = deque()
 visitedd, stack = [], []
-visitedb =[]
 
 def dfs(Graph, start = '', end = ''):
     while stack and len(visitedd) < len(Graph) and end not in visitedd:
@@ -31,27 +27,48 @@ def dfs(Graph, start = '', end = ''):
     return visitedd
 
 
+# def bfs(Graph, start = '', end = ''):
+#     path = []
+#
+#     while q and len(visitedb) < len(Graph) and end not in path:
+#         #print "end: {}; visted: {}".format(end, end in visitedb)
+#         vertex = q.popleft()
+#         visitedb.append(vertex)
+#         path.append(vertex)
+#
+#         ritem = ''
+#         for item in Graph[vertex]:
+#             if item not in visitedb and item not in q:
+#                 q.append(item)
+#                 ritem = item
+#         print "Before iteration, visitedb: " + str(visitedb)
+#         print "Before iteration, q: " + str(q)
+#         return bfs(Graph, start = ritem, end = end)
+#     return visitedb
+
 def bfs(Graph, start = '', end = ''):
+    queue = [[start]]
+    visitedb = []
 
-    while q and len(visitedb) < len(Graph) and end not in visitedb:
-        #print "end: {}; visted: {}".format(end, end in visitedb)
-        vertex = q.popleft()
-        visitedb.append(vertex)
+    while queue:
+        path = queue.pop(0)
+        vertex = path[-1]
 
-        ritem = ''
-        for item in Graph[vertex]:
-            if item not in visitedb and item not in q:
-                q.append(item)
-                ritem = item
-        #print "Before iteration, visitedb: " + str(visitedb)
-        #print "Before iteration, q: " + str(q)
-        return bfs(Graph, start = ritem, end = end)
+        if vertex == end:
+            return path
+        elif vertex not in visitedb:
+            for neighbour in Graph.get(vertex, []):
+                new_path = list(path)
+                new_path.append(neighbour)
+                queue.append(new_path)
+            visitedb.append(vertex)
+            #print "Before iteration, path: " + str(path)
+            #print "Before interation, queue: " + str(queue)
     return visitedb
 
-
 def main():
-    s = 'I'
-    e = 'B'
+    s = 'A'
+    e = 'H'
 
     print "DFS: Path from {} to {}".format(s, e)
     stack.append(s)
@@ -59,7 +76,6 @@ def main():
 
     print "\n"
     print "BFS: Path from {} to {}".format(s, e)
-    q.append(s)
     print bfs(Graph, start = s, end = e)
 
 
