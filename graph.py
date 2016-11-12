@@ -1,4 +1,5 @@
 #!/usr/bin/python
+from collections import deque
 
 Graph = {
     'A': set(['B', 'F', 'D']),
@@ -11,9 +12,10 @@ Graph = {
     'H': set(['C', 'I']),
     'I': set(['E', 'H'])
 }
-
+q = deque()
 visitedd, stack = [], []
 visitedb =[]
+
 def dfs(Graph, start = '', end = ''):
     while stack and len(visitedd) < len(Graph) and end not in visitedd:
         vertex = stack.pop()
@@ -28,8 +30,7 @@ def dfs(Graph, start = '', end = ''):
 
     return visitedd
 
-from collections import deque
-q = deque()
+
 def bfs(Graph, start = '', end = ''):
 
     while q and len(visitedb) < len(Graph) and end not in visitedb:
